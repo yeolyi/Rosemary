@@ -1,0 +1,491 @@
+/* .stick-man__head__small 
+  형태의미순서_상태 msgbox-toggle-off
+*/
+
+@font-face {
+    font-family: 'bold';
+    src: url(font/SpoqaHanSansNeo-Bold.woff2);
+}
+
+@font-face {
+    font-family: 'bold';
+    src: url(font/OpenSans-Bold.ttf);
+    unicode-range: U+0041-005A, U+0061-007A;
+}
+
+@font-face {
+    font-family: 'regular';
+    src: url(font/SpoqaHanSansNeo-Regular.woff2);
+}
+
+@font-face {
+    font-family: 'regular';
+    src: url(font/OpenSans-Regular.ttf);
+    unicode-range: U+0041-005A, U+0061-007A;
+}
+
+
+/* ---------- common ---------- */
+
+* {
+    font-family: 'regular', sans-serif;
+    padding: 0;
+    margin: 0;
+    -webkit-text-size-adjust: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: royalblue;
+}
+
+#container {
+    max-width: 600px;
+    padding: 2vw 4vw;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-family: 'bold', sans-serif;
+    color: #333
+}
+
+.section-title {
+    font-family: 'bold', sans-serif;
+    font-size: 2rem;
+}
+
+.section-title:not(:first-child) {
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 1rem;
+    font-family: 'regular', sans-serif;
+    color: dimgray;
+}
+
+p {
+    font-size: 1rem;
+    font-family: 'regular', sans-serif;
+    line-height: 2;
+    letter-spacing: -0.3px;
+    white-space: pre-wrap;
+    color: #333
+}
+
+strong {
+    font-size: 1rem;
+    font-family: 'bold', sans-serif;
+}
+
+
+/* ---------- header ---------- */
+
+#yeolyi-logo {
+    font-size: 1.5rem;
+    font-family: 'Bold', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    height: 50px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1;
+}
+
+header::after {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: lightgray;
+}
+
+nav {
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.nav__button:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.nav__button {
+    font-size: 1rem;
+    color: dimgray;
+}
+
+/* ---------- Front Page ---------- */
+
+#front-page__nav {
+    margin-top: 32px;
+    margin-left: 16px;
+    height: 40vh;
+}
+
+#front-page__nav h2 {
+    color: royalblue;
+    font-size: 3rem;
+}
+
+#front-page__nav h3 {
+    margin-bottom: 16px;
+}
+
+#front-page__nav>h2 {
+    margin-top: 64px;
+    font-size: 3rem;
+    color: black;
+}
+
+#frontpage__image {
+    margin: 0 auto;
+    max-width: 70%;
+    display: block;
+    padding: 0 20px;
+}
+
+#frontpage__text {
+    text-align: center;
+}
+
+/* 화면 높이를 더해야되는듯? */
+#front-page__full-frame {
+    height: 6500px;
+}
+
+#front-page__screen-frame {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    margin-top: -55px;
+    margin-left: 2rem;
+}
+
+.front-page__object {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.big-text {
+    font-family: "bold", sans-serif;
+    font-size: 2rem;
+}
+
+.small-text {
+    font-family: "bold", sans-serif;
+    font-size: 1.5rem;
+    color: dimgray;
+    white-space: nowrap;
+}
+
+.badge {
+    width: 4rem;
+}
+
+/* ---------- Dev ---------- */
+
+.dev-app-row__img {
+    width: 4rem;
+    padding-right: 1rem;
+}
+
+.dev-app-row {
+    display: flex;
+    color: black;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.dev-app-row h2 {
+    font-size: 1rem;
+}
+
+.dev-app-row h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- Dev App Detail ---------- */
+
+#about-app {
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+#about-app__title {
+    display: flex;
+    align-items: center;
+}
+
+#about-app h2 {
+    font-size: 3rem;
+}
+
+#about-app__icon {
+    width: 3rem;
+    height: 3rem;
+}
+
+.download-on-the-appstore {
+    content: url(/Media/AppstoreDownload.svg);
+    height: 3rem;
+    margin-top: 10px;
+}
+
+/* ---------- Introduction ---------- */
+
+#about-me {
+    padding-top: 10px;
+}
+
+#about-me__links {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+#about-me__links a {
+    margin-right: 16px;
+}
+
+/* ---------- Stories ---------- */
+
+#container nav {
+    margin-bottom: 64px;
+}
+
+#container nav a {
+    font-family: 'bold', sans-serif;
+    font-size: 1rem;
+    margin-right: 16px;
+    color: black;
+}
+
+#container nav p {
+    font-family: 'bold', sans-serif;
+    font-size: 1rem;
+    color: dimgray;
+    line-height: 1.5rem;
+}
+
+#container nav .current-link {
+    display: block;
+    font-family: 'bold', sans-serif;
+    font-size: 3rem;
+    margin-top: 24px;
+    line-height: 3rem;
+    color: black;
+}
+
+#nav-explanation {
+    font-family: 'bold', sans-serif;
+    font-size: 1rem;
+    color: dimgray;
+    margin-bottom: 24px;
+}
+
+.post-row {
+    display: none;
+}
+
+.post-row:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.post-row h2 {
+    font-family: 'bold';
+    font-size: 1.2rem;
+}
+
+.post-row a {
+    color: black;
+}
+
+.post-row:nth-child(-n+10) {
+    display: block;
+}
+
+.post-row__tag {
+    font-size: 0;
+}
+
+#post-nav {
+    text-align: center;
+}
+
+#post-nav-next,
+#post-nav-prev {
+    background: none;
+    border: none;
+    color: dimgray;
+    padding: 10px;
+}
+
+#post-nav *:hover {
+    color: royalblue;
+    cursor: pointer;
+}
+
+/* ---------- Post ---------- */
+
+#post-header {
+    margin-bottom: 64px;
+}
+
+#post-header h2 {
+    color: black;
+    font-size: 2rem;
+    word-spacing: 100vw;
+    margin-top: 32px;
+}
+
+/* ---------- Long Text ---------- */
+
+.utterances-frame {
+    padding-top: 64px;
+    padding-bottom: 32px;
+}
+
+#post-content img {
+    display: block;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+#post-content h2 {
+    margin-bottom: 0.5rem;
+    word-break: keep-all;
+}
+
+#post-content h2:not(:first-child) {
+    margin-top: 2rem;
+}
+
+#post-content ol {
+    list-style-type: decimal;
+}
+
+#post-content ul {
+    list-style-type: square;
+}
+
+#post-content li {
+    line-height: 2;
+    margin-left: 20px;
+}
+
+#post-content blockquote {
+    border-left: 4px solid black;
+    padding-left: 16px;
+}
+
+#post-content p+p,
+#post-content ul+p,
+#post-content ol+p,
+#post-content p+pre,
+#post-content p+blockquote,
+#post-content blockquote+p {
+    margin-top: 16px;
+}
+
+#post-content blockquote+blockquote {
+    margin-top: 24px;
+}
+
+#post-content hr {
+    margin: 24px 0;
+    color: dimgray;
+}
+
+#post-content pre+p {
+    margin-top: 24px;
+}
+
+code {
+    margin-top: 24px;
+}
+
+#post-content pre+p>em {
+    color: dimgray;
+}
+
+/* ---------- TIL ---------- */
+
+.til-row {
+    list-style: none;
+    list-style-position: inside;
+    margin-bottom: 8px;
+}
+
+.til-row h2 {
+    color: black;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+#til-header h2 {
+    font-size: 2rem;
+    word-spacing: 100vw;
+    margin: 2vw 0;
+}
+
+#time-table {
+    margin-bottom: 24px;
+}
+
+.time-table__element {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.time-table__element h2 {
+    margin-right: 16px;
+    font-size: 1rem;
+}
+
+/* Archieve */
+
+#archieve-list {
+    list-style: none;
+}
+
+.archieve-row {
+    margin-bottom: 16px;
+}
+
+.archieve-row h2 {
+    font-size: 1.2rem;
+    color: black;
+}
+
+.archieve__link-block {
+    margin-bottom: 24px;
+}
+
+.archieve__link-block>a {
+    display: block;
+    font-family: 'bold';
+}
+
+.archieve__link-block p {
+    font-size: 0.9rem;
+}
+
+/* Dict ------------------ */
+
+#dict-header {
+    margin-bottom: 48px;
+}
