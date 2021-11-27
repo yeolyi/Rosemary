@@ -1,4 +1,4 @@
-python upload.py
+python convert.py
 
 cd /Users/seongyeolyi/Desktop/blog
 
