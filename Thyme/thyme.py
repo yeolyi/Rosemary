@@ -196,7 +196,4 @@ def preserve_hierachy():
                 f2.write(converted)
 
 
-make_writings()
-make_til()
-make_archieve()
-preserve_hierachy()
+
