@@ -185,15 +185,19 @@ def make_archieve():
 def preserve_hierachy():
     import glob
 
-    for path in glob.iglob(os.path.join(root_path, "src/dict/**/*.md"), recursive=True):
-        compact_path = os.path.relpath(path, os.path.join(root_path, "public"))
-        with open(path, "r") as f:
-            converted = parse_src("archieve/post.html", compact_path, title=lambda x: x)
+    for path in glob.iglob(os.path.join(root_path, "src/dict/**/*"), recursive=True):
+        ext = os.path.splitext(path)[1]
+        if ext == ".md":
+            compact_path = os.path.relpath(path, os.path.join(root_path, "public"))
+            with open(path, "r") as f:
+                converted = parse_src(
+                    "archieve/post.html", compact_path, title=lambda x: x
+                )
+                new_path = str(Path(path).parent).replace("src", "public")
+                Path(new_path).mkdir(parents=True, exist_ok=True)
+                new_path += "/" + os.path.basename(path)[:-2] + "html"
+                with open(new_path, "w") as f2:
+                    f2.write(converted)
+        elif ext != "":
             new_path = str(Path(path).parent).replace("src", "public")
-            Path(new_path).mkdir(parents=True, exist_ok=True)
-            new_path += "/" + os.path.basename(path)[:-2] + "html"
-            with open(new_path, "w") as f2:
-                f2.write(converted)
-
-
-
+            shutil.copy2(path, new_path)
