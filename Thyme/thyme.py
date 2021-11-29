@@ -121,6 +121,12 @@ def make_writings():
 def make_til():
     rows = ""
 
+    def date_of_til(path):
+        p = os.path.join(root_path, "src/til", path, "content.md")
+        with open(p, "r+") as f:
+            post = frontmatter.load(f)
+            return str(post["date"])
+
     def time_table_parser(src):
         ret = ""
         for time_table_title in src:
@@ -150,7 +156,7 @@ def make_til():
         )
 
     shutil.rmtree(os.path.join(root_path, "public/stories/til"), ignore_errors=True)
-    one_folder_one_post("til", "stories/til", til_transform)
+    one_folder_one_post("til", "stories/til", til_transform, date_of_til)
 
     with open(os.path.join(root_path, "public/stories/til/index.html"), "w") as f:
         f.write(build_html("til/list.html", rows=rows))
