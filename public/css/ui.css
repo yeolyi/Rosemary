@@ -358,8 +358,7 @@ nav {
 
 #post-content img {
     display: block;
-    max-width: 50%;
-    margin: 0 auto;
+    max-width: 100%;
 }
 
 #post-content h2 {
