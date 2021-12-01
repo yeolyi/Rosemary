@@ -16,14 +16,26 @@ def load_template(path):
     return ret
 
 
-def build_html(path, **kwargs):
+def search_keywords(src):
     import re
 
-    src = load_template(path)
     startKwIdx = [_.start() for _ in re.finditer("!@", src)]
     endKwIdx = [_.start() for _ in re.finditer("@!", src)]
+    return (startKwIdx, endKwIdx)
+
+
+def build_html_from_path(path, **kwargs):
+    src = load_template(path)
+    return build_html(src, **kwargs)
+
+
+def build_html(src, **kwargs):
+
     startPos = 0
     ret = ""
+    keywords = search_keywords(src)
+    startKwIdx = keywords[0]
+    endKwIdx = keywords[1]
     for i in range(len(startKwIdx)):
         lo = startKwIdx[i]
         hi = endKwIdx[i]
@@ -48,13 +60,14 @@ def parse_src(template_path, src_path, **kwargs):
         if key == "others":
             kwargs["others"](src)
         else:
-            kwargs[key] = f(src[key])
-
+            if key in src:
+                kwargs[key] = f(src[key])
+    temp = build_html(src.content, **kwargs)
     kwargs["content"] = markdown(
-        src.content,
+        temp,
         extensions=["markdown.extensions.fenced_code", "markdown.extensions.attr_list"],
     )
-    return build_html(template_path, **kwargs)
+    return build_html_from_path(template_path, **kwargs)
 
 
 def one_folder_one_post(src_path, dst_path, transform, key=None):
@@ -92,7 +105,7 @@ def make_writings():
     def writing_transform(content_path):
         def makeRow(src):
             nonlocal rows
-            rows += build_html(
+            rows += build_html_from_path(
                 "writing/row.html",
                 title=src["title"],
                 date=str(src["date"]),
@@ -117,7 +130,7 @@ def make_writings():
     one_folder_one_post("writing", "stories/writing", writing_transform, date_of_story)
 
     with open(os.path.join(root_path, "public/stories/index.html"), "w") as f:
-        f.write(build_html("writing/list.html", rows=rows))
+        f.write(build_html_from_path("writing/list.html", rows=rows))
 
 
 def make_til():
@@ -132,7 +145,7 @@ def make_til():
     def time_table_parser(src):
         ret = ""
         for time_table_title in src:
-            ret += build_html(
+            ret += build_html_from_path(
                 "til/time_table.html",
                 title=time_table_title,
                 time=str(src[time_table_title]),
@@ -142,7 +155,7 @@ def make_til():
     def til_transform(content_path):
         def makeRow(src):
             nonlocal rows
-            rows += build_html(
+            rows += build_html_from_path(
                 "til/row.html", date=str(src["date"]), link=f"{src['file_name']}"
             )
 
@@ -161,7 +174,7 @@ def make_til():
     one_folder_one_post("til", "stories/til", til_transform, date_of_til)
 
     with open(os.path.join(root_path, "public/stories/til/index.html"), "w") as f:
-        f.write(build_html("til/list.html", rows=rows))
+        f.write(build_html_from_path("til/list.html", rows=rows))
 
 
 def make_archieve():
@@ -170,7 +183,7 @@ def make_archieve():
     def archieve_transform(content_path):
         def makeRow(src):
             nonlocal rows
-            rows += build_html(
+            rows += build_html_from_path(
                 "archieve/row.html", title=src["title"], link=f"{src['file_name']}"
             )
 
@@ -187,7 +200,7 @@ def make_archieve():
     one_folder_one_post("archieve", "stories/archieve", archieve_transform)
 
     with open(os.path.join(root_path, "public/stories/archieve/index.html"), "w") as f:
-        f.write(build_html("archieve/list.html", rows=rows))
+        f.write(build_html_from_path("archieve/list.html", rows=rows))
 
 
 def preserve_hierachy():
@@ -200,8 +213,18 @@ def preserve_hierachy():
         if ext == ".md":
             compact_path = os.path.relpath(path, os.path.join(root_path, "public"))
             with open(path, "r") as f:
+                mdSrc = f.read()
+                keywords = search_keywords(mdSrc)
+                startKwIdx = keywords[0]
+                endKwIdx = keywords[1]
+                codeSrc = {}
+                for i in range(0, len(startKwIdx)):
+                    file_name = mdSrc[startKwIdx[i] + 2 : endKwIdx[i]]
+                    file_path = os.path.join(Path(path).parent, file_name)
+                    with open(file_path) as g:
+                        codeSrc[file_name] = "```\n" + g.read() + "\n```"
                 converted = parse_src(
-                    "archieve/post.html", compact_path, title=lambda x: x
+                    "archieve/post.html", compact_path, title=lambda x: x, **codeSrc
                 )
                 new_path += "/" + os.path.basename(path)[:-2] + "html"
                 with open(new_path, "w") as f2:
