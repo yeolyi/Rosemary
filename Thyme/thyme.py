@@ -1,6 +1,7 @@
 import os
 import pathlib
 from pathlib import Path
+from posixpath import splitext
 import frontmatter
 import shutil
 
@@ -74,13 +75,14 @@ def one_folder_one_post(src_path, dst_path, transform, key=None):
 
         for post_comp_name in os.listdir(post_src_path):
             post_comp_path = os.path.join(post_src_path, post_comp_name)
+            ext_name = os.path.splitext(post_comp_name)[1]
             if post_comp_name == "content.md":
                 converted = transform(
                     os.path.join(src_path, src_folder_name, post_comp_name)
                 )
                 with open(os.path.join(post_dst_path, "index.html"), "w") as f:
                     f.write(converted)
-            else:
+            elif ext_name == ".png" or ext_name == ".jpg" or ext_name == ".jpeg":
                 shutil.copy2(post_comp_path, post_dst_path)
 
 
@@ -192,6 +194,8 @@ def preserve_hierachy():
     import glob
 
     for path in glob.iglob(os.path.join(root_path, "src/dict/**/*"), recursive=True):
+        new_path = str(Path(path).parent).replace("src", "public")
+        Path(new_path).mkdir(parents=True, exist_ok=True)
         ext = os.path.splitext(path)[1]
         if ext == ".md":
             compact_path = os.path.relpath(path, os.path.join(root_path, "public"))
@@ -199,11 +203,9 @@ def preserve_hierachy():
                 converted = parse_src(
                     "archieve/post.html", compact_path, title=lambda x: x
                 )
-                new_path = str(Path(path).parent).replace("src", "public")
-                Path(new_path).mkdir(parents=True, exist_ok=True)
                 new_path += "/" + os.path.basename(path)[:-2] + "html"
                 with open(new_path, "w") as f2:
                     f2.write(converted)
-        elif ext != "":
+        elif ext == ".png" or ext == ".jpg" or ext == ".jpeg":
             new_path = str(Path(path).parent).replace("src", "public")
             shutil.copy2(path, new_path)
