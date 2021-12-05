@@ -484,5 +484,16 @@ code {
 /* Dict ------------------ */
 
 #dict-header {
-    margin-bottom: 48px;
+    margin-top: 24px;
+    margin-bottom: 64px;
+}
+
+#dict-header>h2 {
+    font-size: 3rem;
+    line-height: 3rem;
+}
+
+#dict-list>h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
 }
