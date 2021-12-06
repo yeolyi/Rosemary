@@ -294,10 +294,6 @@ nav {
     margin-bottom: 24px;
 }
 
-.post-row {
-    display: none;
-}
-
 .post-row:not(:last-child) {
     margin-bottom: 1rem;
 }
@@ -311,8 +307,8 @@ nav {
     color: black;
 }
 
-.post-row:nth-child(-n+10) {
-    display: block;
+.post-row {
+    list-style: none;
 }
 
 .post-row__tag {
@@ -494,6 +490,14 @@ code {
 }
 
 #dict-list>h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 16px;
+}
+
+#dict-list>h2:not(:first-child) {
+    margin-top: 48px;
+}
+
+#dict-list {
+    margin-bottom: 64px;
 }
