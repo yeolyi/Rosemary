@@ -229,6 +229,6 @@ def preserve_hierachy():
                 new_path += "/" + os.path.basename(path)[:-2] + "html"
                 with open(new_path, "w") as f2:
                     f2.write(converted)
-        elif ext == ".png" or ext == ".jpg" or ext == ".jpeg":
+        elif ext == ".png" or ext == ".jpg" or ext == ".jpeg" or ext == ".html":
             new_path = str(Path(path).parent).replace("src", "public")
             shutil.copy2(path, new_path)
