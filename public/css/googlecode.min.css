@@ -6,11 +6,13 @@
 /* 이게 최선이니,,,? */
 #post-content pre code {
     font-family: 'code', monospace;
+    font-size: 0.8rem;
 }
 
 #post-content pre code * {
     font-family: 'code', monospace;
     line-height: 1.5rem;
+    font-size: 0.8rem;
 }
 
 
