@@ -162,7 +162,6 @@ const scrollBlocks = [hello, iamSY, firstIntro, secondIntro, thirdIntro, iOSStud
 
 function update() {
     let height = Math.max(0, document.documentElement.scrollTop);
-    console.log(height);
     for (let i = 0; i < scrollBlocks.length; i++) {
         const element = scrollBlocks[i];
         if (element.startH <= height && height <= element.endH) {
