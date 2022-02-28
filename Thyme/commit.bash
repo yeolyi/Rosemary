@@ -1,4 +1,4 @@
-python convert.py
+python3 convert.py
 
 cd /Users/seongyeolyi/Developer/blog
 
