@@ -1,6 +1,6 @@
 python convert.py
 
-cd /Users/seongyeolyi/Desktop/blog
+cd /Users/seongyeolyi/Developer/blog
 
 git add .
 
@@ -8,7 +8,7 @@ git commit -m "publish"
 
 git push origin master
 
-cd /Users/seongyeolyi/Desktop/Rosemary/src
+cd /Users/seongyeolyi/Developer/Rosemary/src
 
 git add .
 
